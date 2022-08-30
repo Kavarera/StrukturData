@@ -1,6 +1,6 @@
 /*
-* This program were created on vs2019 and tested on c++11 and above.
-* if you faced any error please contact the programmer
+* This program was built on vs2019 and tested on c++11 and above.
+* if you face any error please contact the programmer
 * Rafli Iskandar Kavarera - 123210131
 * 123210131@student.upnyk.ac.id
 */
