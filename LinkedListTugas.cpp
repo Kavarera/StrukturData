@@ -3,6 +3,7 @@
 * if you face any error please contact the programmer
 * Rafli Iskandar Kavarera - 123210131
 * 123210131@student.upnyk.ac.id
+* Github : https://github.com/Kavarera/StrukturData/blob/Stable/LinkedListTugas.cpp
 */
 
 #include <iostream>
@@ -27,11 +28,11 @@ public:
 };
 
 Mahasiswa* createMahasiswa() {
-	Mahasiswa *mahasiswaBaru = new Mahasiswa();
+	Mahasiswa* mahasiswaBaru = new Mahasiswa();
 	system("cls");
 
 	cout << "Nama mahasiswa : ";
-	getline(cin,mahasiswaBaru->Nama);
+	getline(cin, mahasiswaBaru->Nama);
 	cout << "Nim Mahasiswa : ";
 	getline(cin, mahasiswaBaru->Nim);
 	cin.clear();
@@ -44,26 +45,73 @@ Mahasiswa* createMahasiswa() {
 }
 
 void append(Node** headRef, Mahasiswa* mBaru) {
+	Node* awal = *headRef;
 	Node* nodeBaru = new Node();
-	Node* akhir = *headRef;
 	nodeBaru->value = mBaru;
-	nodeBaru->next = NULL;
 	if (*headRef == NULL) {
+		//cout << "headref" << endl; system("pause");
 		*headRef = nodeBaru;
+		free(awal);
 		return;
 	}
-	while (akhir->next != NULL) {
-		akhir = akhir->next;
+	else if (awal->next == NULL) {
+		if (std::stoi(awal->value->Nim) > std::stoi(nodeBaru->value->Nim)) {
+			//cout << "awalnim > nodebarunim" << endl; system("pause");
+			nodeBaru->next = awal;
+			awal->next = NULL;
+			*headRef = nodeBaru;
+			return;
+		}
+		awal->next = nodeBaru;
+		//cout << "awalnext=nodebaru" << endl; system("pause");
+		return;
 	}
-	akhir->next = nodeBaru;
+	else if (std::stoi(awal->value->Nim) > std::stoi(nodeBaru->value->Nim)) {
+		nodeBaru->next = awal;
+		*headRef = nodeBaru;
+		//cout << "awalnim > nodebarunim next not null" << endl; system("pause");
+		return;
+	}
+	else {
+		//cout << "else" << endl; system("pause");
+		Node* bantu = awal;
+		while (true) {
+			//cout << "cBantu=" << bantu->value->Nim << endl;
+			if (bantu->next == NULL || bantu->next == nullptr) {
+				bantu->next = nodeBaru;
+				//cout << "bantunextnull, bantunext nodebaru" << endl; system("pause");
+				break;
+			}
+			else if (std::stoi(bantu->next->value->Nim) >= std::stoi(nodeBaru->value->Nim)) {
+				nodeBaru->next = bantu->next;
+				bantu->next = nodeBaru;
+				//cout << "bantunextnim >= nodebarunim, nodebarunext = bantunext, bantunext=nodebaru" << endl; system("pause");
+				break;
+			}
+			else {
+				//cout << bantu->next << endl; system("pause");
+				//bantu == NULL ? cout << "bantu= true" : cout << "bantu=false";
+				//bantu->next == NULL ? cout << "bantuN=true" : cout << "bantuN=false";
+				//cout << endl; system("pause");
+				//cout << "cBantu=" << bantu->value->Nim << endl;
+				//cout << "cBantuN=" << bantu->next->value->Nim << endl;
+				bantu = bantu->next;
+				//cout << "cBantu=" << bantu->value->Nim << endl;
+				//cout << "cBantuN=" << bantu->next->value->Nim << endl;
+				//cout << "bantu=bantunext" << endl << bantu->next << endl; system("pause");
+				continue;
+			}
+		}
+	}
+
 }
 
 void cetakData(Node* startPoint) {
 	while (startPoint != NULL) {
 		cout << "=========================\n";
-		cout << "Nama\t: " << startPoint->value->Nama<<endl;
-		cout << "NIM\t: " << startPoint->value->Nim<<endl;
-		cout << "Kelas\t: " << startPoint->value->Kelas<<endl;
+		cout << "Nama\t: " << startPoint->value->Nama << endl;
+		cout << "NIM\t: " << startPoint->value->Nim << endl;
+		cout << "Kelas\t: " << startPoint->value->Kelas << endl;
 		cout << "Nilai\t: " << startPoint->value->Nilai << endl;
 		startPoint = startPoint->next;
 	}
@@ -91,7 +139,7 @@ void Delete(Node** headRef) {
 			}
 		}
 		else {
-			bool deleted=false;
+			bool deleted = false;
 			while (current->next != NULL) {
 				after = current->next;
 				if (after->value->Nim == deletedNim) {
@@ -105,7 +153,7 @@ void Delete(Node** headRef) {
 					deleted = false;
 				}
 			}
-			deleted ? cout << "Data dihapus!\n":
+			deleted ? cout << "Data dihapus!\n" :
 				cout << "Nim tidak ditemukan\n Hapus data gagal!\n";
 			system("pause");
 		}
@@ -121,7 +169,7 @@ int main() {
 	while (true)
 	{
 		system("cls");
-		cout << "MENU\n1. Tambah Data\n2. Hapus Data\n3. Lihat Semua Data" << endl;
+		cout << "MENU\n1. Tambah Data\n2. Hapus Data\n3. Lihat Semua Data\n\nesc untuk keluar" << endl;
 		int answer = _getch();
 		switch (answer)
 		{
