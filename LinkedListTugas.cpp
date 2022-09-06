@@ -52,16 +52,6 @@ void append(Node** headRef, Mahasiswa* mBaru) {
 		free(awal);
 		return;
 	}
-	else if (awal->next == NULL) {
-		if (std::stoi(awal->value->Nim) > std::stoi(nodeBaru->value->Nim)) {
-			nodeBaru->next = awal;
-			awal->next = NULL;
-			*headRef = nodeBaru;
-			return;
-		}
-		awal->next = nodeBaru;
-		return;
-	}
 	else if (std::stoi(awal->value->Nim) > std::stoi(nodeBaru->value->Nim)) {
 		nodeBaru->next = awal;
 		*headRef = nodeBaru;
