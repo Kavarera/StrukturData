@@ -38,7 +38,6 @@ Mahasiswa* createMahasiswa() {
 	cin.clear();
 	cout << "Kelas\t\t: "; cin >> mahasiswaBaru->Kelas;
 	mahasiswaBaru->Kelas = mahasiswaBaru->Kelas >= 97 ? (int)mahasiswaBaru->Kelas - 32 : mahasiswaBaru->Kelas;
-	//mahasiswaBaru->Kelas = (char)mahasiswaBaru->Kelas;
 	cout << "Nilai\t\t: "; cin >> mahasiswaBaru->Nilai;
 	cin.ignore();
 	return mahasiswaBaru;
@@ -49,56 +48,42 @@ void append(Node** headRef, Mahasiswa* mBaru) {
 	Node* nodeBaru = new Node();
 	nodeBaru->value = mBaru;
 	if (*headRef == NULL) {
-		//cout << "headref" << endl; system("pause");
 		*headRef = nodeBaru;
 		free(awal);
 		return;
 	}
 	else if (awal->next == NULL) {
 		if (std::stoi(awal->value->Nim) > std::stoi(nodeBaru->value->Nim)) {
-			//cout << "awalnim > nodebarunim" << endl; system("pause");
 			nodeBaru->next = awal;
 			awal->next = NULL;
 			*headRef = nodeBaru;
 			return;
 		}
 		awal->next = nodeBaru;
-		//cout << "awalnext=nodebaru" << endl; system("pause");
 		return;
 	}
 	else if (std::stoi(awal->value->Nim) > std::stoi(nodeBaru->value->Nim)) {
 		nodeBaru->next = awal;
 		*headRef = nodeBaru;
-		//cout << "awalnim > nodebarunim next not null" << endl; system("pause");
 		return;
 	}
 	else {
-		//cout << "else" << endl; system("pause");
 		Node* bantu = awal;
 		while (true) {
-			//cout << "cBantu=" << bantu->value->Nim << endl;
+			
 			if (bantu->next == NULL || bantu->next == nullptr) {
 				bantu->next = nodeBaru;
-				//cout << "bantunextnull, bantunext nodebaru" << endl; system("pause");
 				break;
 			}
 			else if (std::stoi(bantu->next->value->Nim) >= std::stoi(nodeBaru->value->Nim)) {
 				nodeBaru->next = bantu->next;
 				bantu->next = nodeBaru;
-				//cout << "bantunextnim >= nodebarunim, nodebarunext = bantunext, bantunext=nodebaru" << endl; system("pause");
 				break;
 			}
 			else {
-				//cout << bantu->next << endl; system("pause");
-				//bantu == NULL ? cout << "bantu= true" : cout << "bantu=false";
-				//bantu->next == NULL ? cout << "bantuN=true" : cout << "bantuN=false";
-				//cout << endl; system("pause");
-				//cout << "cBantu=" << bantu->value->Nim << endl;
-				//cout << "cBantuN=" << bantu->next->value->Nim << endl;
+				
 				bantu = bantu->next;
-				//cout << "cBantu=" << bantu->value->Nim << endl;
-				//cout << "cBantuN=" << bantu->next->value->Nim << endl;
-				//cout << "bantu=bantunext" << endl << bantu->next << endl; system("pause");
+				
 				continue;
 			}
 		}
