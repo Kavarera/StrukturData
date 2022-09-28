@@ -37,11 +37,6 @@ void append(Node **k, Node **e,int urut){
 		Node *bantu = kepala->next;
 		Peminjam *p;
 		while(bantu->next!=nullptr){
-			// p=createPeminjam(urut+ 1);
-			// Node *baru = new Node;
-			// baru->info =p;
-			// baru->next=ekor;
-			// bantu->next=baru;
 			if(bantu->next==ekor){
 				Node *baru = new Node;
 				baru->info = createPeminjam(urut+1);
@@ -91,6 +86,7 @@ void Delete(Node** k, Node **e){
 					free(bantu);
 					break;
 				}
+				else continue;
 			}
 		}
 	}
@@ -107,13 +103,17 @@ ekor->info=nullptr;
 ekor->next=nullptr;
 
 while(true){
-cout<<"pilih menu\n1. Input\n2. Cetak"<<endl; int i=getch();
+cout<<"pilih menu\n1. Input\n2. Cetak\n3.Delete "<<endl; int i=getch();
 if(i==49){
 	append(&kepala,&ekor,urut);
 	urut++;
 }
 else if(i==50){
 	cetakData(&kepala);
+}
+else if(i==51){
+	Delete(&kepala,&ekor);
+
 }
 else break;
 
