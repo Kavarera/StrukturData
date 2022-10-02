@@ -67,58 +67,74 @@ void Delete(Node** k, Node **e){
 	Node *ekor = *e;
 	Node *bantu = kepala->next;
 	Node *prev=kepala->next;
+    bool deleted=false;
 	while(bantu->next!=nullptr){
-		if(kepala->next==bantu){//hapus awal
-			if(bantu->info->urut==uDel){
-				kepala->next=bantu->next;
-				free(bantu);
-				break;			
-			}
-			else continue;
+		if(kepala->next->info->urut==uDel){//hapus awal
+            kepala->next=bantu->next;
+            free(bantu);
+            deleted=true;
+            break;
+
+
+			// if(bantu->info->urut==uDel){
+			// 	kepala->next=bantu->next;
+			// 	free(bantu);
+            //     deleted=true;
+			// 	break;			
+			// }
 		}
 		//hapus tengah dan strnty
 		else{
-			prev=bantu;
-			if(bantu->next!=nullptr){
-				bantu=bantu->next;
-				if(bantu->info->urut==uDel){
-					prev->next=bantu->next;
-					free(bantu);
-					break;
-				}
-				else continue;
-			}
+			//hapus tengah
+            if(bantu->info->urut==uDel){
+                prev->next=bantu->next;
+                free(bantu);
+                deleted=true;
+                break;
+            }
+            else if(bantu->next==ekor){
+                prev->next=ekor;
+                free(bantu);
+                deleted=true;
+                break;
+            }
+            else{
+                prev=bantu;
+                bantu = bantu->next;
+            }
 		}
 	}
+    deleted ==true ? cout<<"\nBerhasil hapus data\n" : cout<<"\nGagal hapus data\n";
+    system("pause");
+    
 }
 
 
 int main(){
 	int urut=0;
-Node *kepala = new Node;
-Node *ekor = new Node;
-kepala->next=ekor;
-kepala->info= nullptr;
-ekor->info=nullptr;
-ekor->next=nullptr;
+    Node *kepala = new Node;
+    Node *ekor = new Node;
+    kepala->next=ekor;
+    kepala->info= nullptr;
+    ekor->info=nullptr;
+    ekor->next=nullptr;
 
-while(true){
-cout<<"pilih menu\n1. Input\n2. Cetak\n3.Delete "<<endl; int i=getch();
-if(i==49){
-	append(&kepala,&ekor,urut);
-	urut++;
-}
-else if(i==50){
-	cetakData(&kepala);
-}
-else if(i==51){
-	Delete(&kepala,&ekor);
+    while(true){
+    cout<<"pilih menu\n1. Input\n2. Cetak\n3.Delete "<<endl; int i=getch();
+    if(i==49){
+        append(&kepala,&ekor,urut);
+        urut++;
+    }
+    else if(i==50){
+        cetakData(&kepala);
+    }
+    else if(i==51){
+        Delete(&kepala,&ekor);
 
-}
-else break;
+    }
+    else break;
 
-}
+    }
 
-return 0;
-
+    return 0;
 }
